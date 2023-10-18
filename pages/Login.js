@@ -1,6 +1,23 @@
 import { Text, TouchableOpacity, View, TextInput, StyleSheet, Image } from "react-native";
 
+import { UtilsContext } from "../context";
+import { useContext, useState } from 'react';
+
+
 export default function Login(props) {
+    const { data, setData } = useContext(UtilsContext);
+
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+
+    console.log(data)
+    function Login() {
+        data.forEach(u => {
+            if (u.email == email && u.senha == senha)
+                props.navigation.navigate("Usuarios")
+        });
+    }
+
     return (
         <View style={styles.body}>
 
@@ -8,16 +25,16 @@ export default function Login(props) {
 
             <View style={styles.line}>
                 <Text style={styles.label}>Email: </Text>
-                <TextInput style={styles.input} />
+                <TextInput style={styles.input} onChangeText={e => setEmail(e)} />
             </View>
 
             <View style={styles.line}>
                 <Text style={styles.label}>Senha: </Text>
-                <TextInput style={styles.input} />
+                <TextInput style={styles.input} onChangeText={e => setSenha(e)} />
             </View>
 
             <View style={styles.line}>
-                <TouchableOpacity onPress={() => props.navigation.navigate("Usuarios")} style={styles.button}>
+                <TouchableOpacity onPress={() => Login()} style={styles.button}>
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
 

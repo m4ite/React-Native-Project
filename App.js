@@ -5,17 +5,25 @@ import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
 import Usuarios from "./pages/Usuarios";
 
-export default function App()
-{
-  const Stack = createStackNavigator();
+import { UtilsContext } from "./context";
+import {useState} from 'react';
 
-  return(
-   <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login}/>
-        <Stack.Screen name="Cadastro" component={Cadastro}/>
-        <Stack.Screen name="Usuarios" component={Usuarios}/>
-      </Stack.Navigator>
-   </NavigationContainer>
+export default function App() {
+  const Stack = createStackNavigator();
+  const [data,setData] = useState([]);
+
+  return (
+    <NavigationContainer>
+
+      <UtilsContext.Provider value={{data, setData}}>
+        <Stack.Navigator>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Cadastro" component={Cadastro} />
+          <Stack.Screen name="Usuarios" component={Usuarios} />
+        </Stack.Navigator>
+      </UtilsContext.Provider>
+
+
+    </NavigationContainer>
   );
 }

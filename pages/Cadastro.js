@@ -3,6 +3,9 @@ import { Text, View, TouchableOpacity, StyleSheet, TextInput, Switch } from "rea
 import { useContext, useState, useEffect } from 'react';
 import { UtilsContext } from "../context";
 
+import axios from 'axios'
+
+
 
 export default function Cadastro(props) {
 
@@ -17,25 +20,30 @@ export default function Cadastro(props) {
     const [notificacao, setNotificacao] = useState(false)
 
     function Cadastrar() {
-        if(senha != confim)
-        {
+        if (senha != confim) {
             alert("A senhas devem ser iguais!")
             return
         }
 
-        if(!senha || !email || !nome || !idade || !sexo)
-        {
+        if (!senha || !email || !nome || !idade || !sexo) {
             alert("Todos os campos devem ser preenchidos")
             return
         }
 
-        setData([...data,{nome,idade,sexo,email,senha,notificacao}])
+        var user = {
+            nome, idade,
+            sexo, email,
+            senha, notificacao
+        }
+
+        setData([...data, { nome, idade, sexo, email, senha, notificacao }])
+        axios.post('', user)
         props.navigation.navigate("Login")
     }
 
     useEffect(() => {
         console.log(data)
-    },[data])
+    }, [data])
 
     return (
         <View style={styles.body}>

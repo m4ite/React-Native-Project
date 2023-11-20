@@ -1,16 +1,10 @@
 import { Text, View, TouchableOpacity, StyleSheet, TextInput, Switch } from "react-native";
+import { useState } from 'react';
 
-import { useContext, useState, useEffect } from 'react';
-import { UtilsContext } from "../context";
-
-import axios from 'axios'
-
-
+import { funcionariosSlice } from '../store/slice';
+import { useDispatch } from "react-redux";
 
 export default function Cadastro(props) {
-
-    const { data, setData } = useContext(UtilsContext);
-
     const [nome, setNome] = useState("")
     const [idade, setIdade] = useState("")
     const [sexo, setSexo] = useState("")
@@ -18,6 +12,9 @@ export default function Cadastro(props) {
     const [senha, setSenha] = useState("")
     const [confim, setConfirm] = useState("")
     const [notificacao, setNotificacao] = useState(false)
+
+    const {register} = funcionariosSlice.actions;
+    const dispatch = useDispatch();
 
     function Cadastrar() {
         if (senha != confim) {
@@ -36,14 +33,9 @@ export default function Cadastro(props) {
             senha, notificacao
         }
 
-        setData([...data, { nome, idade, sexo, email, senha, notificacao }])
-        axios.post('', user)
+        dispatch(register(user))
         props.navigation.navigate("Login")
     }
-
-    useEffect(() => {
-        console.log(data)
-    }, [data])
 
     return (
         <View style={styles.body}>

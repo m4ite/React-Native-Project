@@ -1,18 +1,16 @@
 import { Text, TouchableOpacity, View, TextInput, StyleSheet, Image } from "react-native";
-
-import { UtilsContext } from "../context";
-import { useContext, useState } from 'react';
-
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Login(props) {
-    const { data, setData } = useContext(UtilsContext);
+    const { value } = useSelector((store) => store.list);
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
-    console.log(data)
+    console.log(value)
     function Login() {
-        data.forEach(u => {
+        value.forEach(u => {
             if (u.email == email && u.senha == senha)
                 props.navigation.navigate("Usuarios")
         });

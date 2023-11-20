@@ -5,25 +5,21 @@ import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
 import Usuarios from "./pages/Usuarios";
 
-import { UtilsContext } from "./context";
-import {useState} from 'react';
+import { store } from "./store"
+import { Provider } from 'react-redux';
 
 export default function App() {
   const Stack = createStackNavigator();
-  const [data,setData] = useState([]);
 
   return (
     <NavigationContainer>
-
-      <UtilsContext.Provider value={{data, setData}}>
+      <Provider store={store}>
         <Stack.Navigator>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Cadastro" component={Cadastro} />
           <Stack.Screen name="Usuarios" component={Usuarios} />
         </Stack.Navigator>
-      </UtilsContext.Provider>
-
-
+      </Provider>
     </NavigationContainer>
   );
 }

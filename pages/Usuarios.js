@@ -1,15 +1,10 @@
 import { View, FlatList, Text, StyleSheet, Image } from "react-native";
-
-import { useContext } from 'react';
-import { UtilsContext } from "../context";
+import { useSelector } from "react-redux";
 
 export default function Usuarios(props) {
-    const { data, setData } = useContext(UtilsContext);
-    console.log(data)
+    const { value } = useSelector((store) => store.list);
 
-
-    if (data.length == 0) {
-        console.log("oi")
+    if (value.length == 0) {
         return (
             <>
                 <View style={styles.body}>
@@ -23,7 +18,7 @@ export default function Usuarios(props) {
         return (
             <>
                 <View style={styles.body}>
-                    <FlatList data={data}
+                    <FlatList data={value}
                         keyExtractor={(item, index) => item + index}
                         renderItem={({ item }) => (
                             <View style={styles.box}>
@@ -34,8 +29,8 @@ export default function Usuarios(props) {
                                 <Text>
                                     <Text style={styles.label}>Notificações:</Text>
                                     {item.notificacao ?
-                                    <Image source={require("../assets/able.png")} style={styles.image}/>:
-                                    <Image source={require("../assets/disabled.png")} style={styles.image}/>}
+                                        <Image source={require("../assets/able.png")} style={styles.image} /> :
+                                        <Image source={require("../assets/disabled.png")} style={styles.image} />}
                                 </Text>
 
                             </View>)} />
